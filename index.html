@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <script src="vue2_01.js"></script>
+    <style>
+        div {
+            width: 250px;
+            margin: 30px auto;
+            border: 1px solid #666;
+            border-radius: 30px;
+        }
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>
+            <input type="text" placeholder="请输入一个数" v-model="guessed"> 
+        </p>
+        <p>{{result}}</p>
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                guessed: '',
+                key: Math.round(Math.random() * 100)
+            },
+            computed: {
+                result() {
+                    const value = parseInt(this.guessed, 10);
+                    if (isNaN(value) || value < 1 || value > 100) {
+                        return "请输入一个1-100之间的整数";
+                    }
+                    if (value === this.key) {
+                        return "恭喜你，猜对了";
+                    } else if (value > this.key) {
+                        return "猜大了";
+                    } else {
+                        return "猜小了";
+                    }
+                }
+            }
+        })
+        console.log(vm.$data)
+    </script>
+</body>
+</html>
